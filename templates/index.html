@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Comparison Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">File Comparison Tool</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- CROSS_CHECK Section -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">CROSS_CHECK Files</h2>
+                
+                <form action="/upload" method="post" enctype="multipart/form-data" class="mb-4">
+                    <input type="hidden" name="folder" value="cross_check">
+                    <div class="flex">
+                        <input type="file" name="file" class="border p-2 rounded-l flex-grow">
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-r">
+                            Upload
+                        </button>
+                    </div>
+                </form>
+                
+                <ul class="border rounded divide-y">
+                    {% for file in cross_check_files %}
+                    <li class="p-3 flex justify-between items-center">
+                        <span>{{ file }}</span>
+                        <form action="/delete" method="post">
+                            <input type="hidden" name="folder" value="cross_check">
+                            <input type="hidden" name="filename" value="{{ file }}">
+                            <button type="submit" class="text-red-500 hover:text-red-700">
+                                Delete
+                            </button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <!-- REF Section -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">REF Files</h2>
+                
+                <form action="/upload" method="post" enctype="multipart/form-data" class="mb-4">
+                    <input type="hidden" name="folder" value="ref">
+                    <div class="flex">
+                        <input type="file" name="file" class="border p-2 rounded-l flex-grow">
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-r">
+                            Upload
+                        </button>
+                    </div>
+                </form>
+                
+                <ul class="border rounded divide-y">
+                    {% for file in ref_files %}
+                    <li class="p-3 flex justify-between items-center">
+                        <span>{{ file }}</span>
+                        <form action="/delete" method="post">
+                            <input type="hidden" name="folder" value="ref">
+                            <input type="hidden" name="filename" value="{{ file }}">
+                            <button type="submit" class="text-red-500 hover:text-red-700">
+                                Delete
+                            </button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <form action="/compare" method="post">
+                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg">
+                    Run Comparison
+                </button>
+            </form>
+        </div>
+        
+        {% if report %}
+        <div class="mt-8 bg-white p-6 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-4">Comparison Report</h2>
+            <pre class="bg-gray-800 text-white p-4 rounded overflow-x-auto">{{ report }}</pre>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
