@@ -23,7 +23,7 @@ def run_comparison():
         with open(x) as dat, open('CROSS_ALL.txt', 'a') as tulis:
             data = dat.read()
             for line in data.split('\n'):
-                if 'STP' in line and 'ADD RULECONDITIONGROUP:RULENAME="R_661528_' in line:
+                if 'STP' in line and 'ADD RULECONDITIONGROUP:RULENAME="R_XXX_' in line:
                     tulis.write(line + '\n')
 
     # Process REF files
@@ -32,7 +32,7 @@ def run_comparison():
         with open(x) as dat, open('CROSS_REF.txt', 'a') as tulis:
             data = dat.read()
             for line in data.split('\n'):
-                if 'STP' in line and 'ADD RULECONDITIONGROUP:RULENAME="R_661528_' in line:
+                if 'STP' in line and 'ADD RULECONDITIONGROUP:RULENAME="R_XXX_' in line:
                     tulis.write(line + '\n')
 
     # Read both files for comparison
